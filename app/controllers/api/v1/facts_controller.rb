@@ -34,7 +34,7 @@ class Api::V1::FactsController < ApplicationController
     end
 
     def destroy
-        # @user = Fact.find(params[:id])
+        
         if @fact
             @fact.destroy
             render json: {message: 'Fact successfully deleted.'}, status: 200
