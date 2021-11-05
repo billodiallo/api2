@@ -24,29 +24,32 @@ class Api::V1::FactsController < ApplicationController
 # PUT /users/id
 
     def update
-        @user = User.find(params[:id])
-        if @user
-            @user.update(user_params)
-            render json: {message: 'User successfully updated.'}, status: 200
+        @user = Fact.find(params[:id])
+        if @fact
+            @fact.update(facts_params)
+            render json: {message: 'Fact successfully updated.'}, status: 200
         else
-            render json: {error: 'Unable to update User'}, status: 400
+            render json: {error: 'Unable to update Fact'}, status: 400
         end
     end
 
     def destroy
-        @user = User.find(params[:id])
-        if @user
-            @user.destroy(user_params)
-            render json: {message: 'User successfully deleted.'}, status: 200
+        # @user = Fact.find(params[:id])
+        if @fact
+            @fact.destroy
+            render json: {message: 'Fact successfully deleted.'}, status: 200
         else
-            render json: {error: 'Unable to delete User'}, status: 400
+            render json: {error: 'Unable to delete fact'}, status: 400
         end
     end
 
     private
 
-    def user_params
-        params.required 
+    def fact_params
+        params.required(:fact).permit(:fact, :like, :user_id)
+    end
+    def find_fact
+        @fact =  Fact.find(params[:id])
     end
 
 end
